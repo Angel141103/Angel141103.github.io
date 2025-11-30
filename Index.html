@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteShop</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
+            background-color: white !important;
+            box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+        }
+
+        body {
+            padding-top: 95px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .card {
+            transition: 0.2s;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-icons a {
+            color: #333;
+            margin: 0 10px;
+            font-size: 25px;
+            transition: 0.2s;
+        }
+
+        .social-icons a:hover {
+            color: #007bff;
+        }
+
+        :focus {
+            outline: 3px solid #007bff;
+            outline-offset: 4px;
+        }
+
+        #backTop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg px-4" role="navigation" aria-label="Menú principal">
+    <a class="navbar-brand fw-bold" href="#">
+        <i class="fa-solid fa-store"></i> ByteShop
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Tienda</a></li>
+        </ul>
+        <form class="d-flex me-3" role="search" aria-label="Buscar productos">
+            <label for="buscador" class="visually-hidden">Buscar productos</label>
+            <input id="buscador" class="form-control" type="search" placeholder="Buscar...">
+            <button class="btn btn-primary ms-2" aria-label="Ejecutar búsqueda">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+        <div>
+            <a href="#" class="text-decoration-none me-3">Iniciar Sesión</a> |
+            <a href="#" class="text-decoration-none ms-3">Registrarse</a>
+        </div>
+        <a href="#" class="ms-4" aria-label="Ver carrito">
+            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+        </a>
+    </div>
+</nav>
+
+<!-- BANNER -->
+<div class="container">
+    <img src="imagenes/blackfriday.png" class="img-fluid rounded" alt="Promoción Black Friday con descuentos especiales en manga">
+</div>
+
+<!-- TITULO -->
+<div class="container my-4">
+    <h3 class="fw-bold">Productos destacados</h3>
+</div>
+
+<!-- PRODUCTOS -->
+<div class="container">
+    <div class="row g-4">
+
+        <!-- PRODUCTO 1 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/images.jpg" class="product-img" alt="Portada del manga Boku No Hero Academia">
+                <div class="card-body">
+                    <h6 class="card-title">Boku no Hero</h6>
+                    <p class="small">Un mundo donde el 80% de las personas tiene poderes llamados *quirks*. Izuku Midoriya, quien nació sin poderes, sueña con convertirse en héroe.</p>
+                    <p class="text-success fw-bold">$750</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 2 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/651561.jpg" class="product-img" alt="Portada del manga Blue Lock">
+                <div class="card-body">
+                    <h6 class="card-title">Blue Lock</h6>
+                    <p class="small">Un intenso programa de entrenamiento para crear al mejor delantero del mundo. Solo uno sobrevivirá al proyecto Blue Lock.</p>
+                    <p class="text-success fw-bold">$25</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 3 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/0001.jpg" class="product-img" alt="Portada del manga Neon Genesis Evangelion">
+                <div class="card-body">
+                    <h6 class="card-title">Neon Genesis Evangelion</h6>
+                    <p class="small">Shinji Ikari debe pilotear un EVA y luchar contra misteriosas criaturas mientras enfrenta un conflicto psicológico profundo.</p>
+                    <p class="text-success fw-bold">$45</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 4 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/0505.jpg" class="product-img" alt="Portada del manga Monster">
+                <div class="card-body">
+                    <h6 class="card-title">Monster</h6>
+                    <p class="small">El doctor Tenma salva la vida de un niño que más tarde se convierte en un asesino. Una historia oscura, psicológica y llena de misterio.</p>
+                    <p class="text-success fw-bold">$20</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 5 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/757575.jpg" class="product-img" alt="Portada del manga Demon Slayer">
+                <div class="card-body">
+                    <h6 class="card-title">Demon Slayer</h6>
+                    <p class="text-success fw-bold">$35</p>
+                    <p class="small text-muted">Tanjiro lucha para salvar a su hermana Nezuko tras un ataque de demonios y se une al cuerpo de cazadores.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 6 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/585858.jpg" class="product-img" alt="Portada del manga Chainsaw Man">
+                <div class="card-body">
+                    <h6 class="card-title">Chainsaw Man</h6>
+                    <p class="text-success fw-bold">$30</p>
+                    <p class="small text-muted">Denji, fusionado con su demonio moto-sierra, lucha contra criaturas sobrenaturales mientras busca una vida mejor.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 7 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/2323.jpg" class="product-img" alt="Portada del manga Tokyo Revengers">
+                <div class="card-body">
+                    <h6 class="card-title">Tokyo Revengers</h6>
+                    <p class="text-success fw-bold">$28</p>
+                    <p class="small text-muted">Takemichi viaja al pasado para evitar la muerte de la chica que amó e involucrarse con pandillas peligrosas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 8 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/9696.jpg" class="product-img" alt="Portada del manga Jujutsu Kaisen">
+                <div class="card-body">
+                    <h6 class="card-title">Jujutsu Kaisen</h6>
+                    <p class="text-success fw-bold">$40</p>
+                    <p class="small text-muted">Yuji Itadori enfrenta maldiciones después de consumir un objeto prohibido y convertirse en el anfitrión de Sukuna.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 9 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/3030.jpg" class="product-img" alt="Portada del manga One Piece">
+                <div class="card-body">
+                    <h6 class="card-title">One Piece</h6>
+                    <p class="text-success fw-bold">$50</p>
+                    <p class="small text-muted">Luffy y su tripulación buscan el legendario tesoro One Piece para convertirse en el rey de los piratas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 10 -->
+        <div class="col-md-3">
+            <div class="card p-2">
+                <img src="imagenes/5858.jpg" class="product-img" alt="Portada del manga Naruto Shippuden">
+                <div class="card-body">
+                    <h6 class="card-title">Naruto Shippuden</h6>
+                    <p class="text-success fw-bold">$38</p>
+                    <p class="small text-muted">Naruto continúa su camino ninja mientras enfrenta enemigos legendarios y busca salvar a Sasuke de la oscuridad.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center mt-5 p-4 bg-light">
+    <p class="m-0">© 2025 MangaDex</p>
+    <div class="social-icons mt-3" aria-label="Redes sociales">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+</footer>
+
+<button id="backTop" aria-label="Volver arriba">⬆</button>
+
+<script>
+    const backTop = document.getElementById("backTop");
+
+    window.addEventListener("scroll", () => {
+        backTop.style.display = window.scrollY > 300 ? "block" : "none";
+    });
+
+    backTop.addEventListener("click", () => {
+        window.scrollTo({top: 0, behavior: "smooth"});
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
