@@ -3,72 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MangaDex</title>
+    <title>MangaDex - Tienda de Manga Online</title>
+    <meta name="description" content="Tienda online especializada en manga. Encuentra los mejores títulos de shonen, seinen y más.">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <!-- Estilos propios -->
     <link rel="stylesheet" href="styles.css">
-
-    <style>
-        /* Modo oscuro */
-        body.dark-mode {
-            background-color: #121212;
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .navbar,
-        body.dark-mode .card,
-        body.dark-mode footer,
-        body.dark-mode .modal-content {
-            background-color: #1e1e1e;
-            color: #ffffff !important;
-        }
-
-        body.dark-mode .btn-primary {
-            background-color: #bb86fc;
-            border-color: #bb86fc;
-        }
-
-        body.dark-mode .text-success {
-            color: #03dac6 !important;
-        }
-
-        body.dark-mode .text-muted {
-            color: #bbbbbb !important;
-        }
-
-        body.dark-mode a,
-        body.dark-mode a.nav-link,
-        body.dark-mode .navbar-brand,
-        body.dark-mode .social-icons a {
-            color: #ffffff !important;
-        }
-
-        body.dark-mode input,
-        body.dark-mode textarea,
-        body.dark-mode select {
-            background-color: #2c2c2c;
-            color: #ffffff;
-        }
-
-        body.dark-mode .badge {
-            color: #ffffff;
-        }
-
-        /* Productos ocultos por defecto */
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- NAVBAR MEJORADO -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-4" role="navigation" aria-label="Menú principal">
-    <a class="navbar-brand fw-bold" href="#"><i class="fa-solid fa-store"></i> MangaDex</a>
+    <a class="navbar-brand fw-bold" href="#">
+        <i class="fa-solid fa-book-open me-2"></i>MangaDex
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú de navegación">
         <span class="navbar-toggler-icon"></span>
@@ -76,6 +29,8 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="#" id="categoryToggle">Categorías</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="showAllProducts">Ver Todos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="showFeatured">Destacados</a></li>
         </ul>
         <form class="d-flex me-3" id="searchForm" role="search" aria-label="Buscar productos">
             <label for="buscador" class="visually-hidden">Buscar productos</label>
@@ -84,168 +39,361 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
-        <div>
+        <div class="d-flex align-items-center">
             <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</a> |
             <a href="#" class="text-decoration-none ms-3" data-bs-toggle="modal" data-bs-target="#registerModal">Registrarse</a>
+            <!-- Botón Modo Oscuro -->
+            <button id="darkModeBtn" class="btn btn-outline-secondary ms-3" aria-label="Activar modo oscuro">
+                <i class="fa-solid fa-moon"></i> <span class="d-none d-md-inline">Modo oscuro</span>
+            </button>
+            <a href="#" class="ms-4 position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" aria-label="Ver carrito">
+                <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    0
+                </span>
+            </a>
         </div>
-        <!-- Botón Modo Oscuro -->
-        <button id="darkModeBtn" class="btn btn-outline-secondary ms-3" aria-label="Activar modo oscuro">Modo oscuro</button>
-
-        <a href="#" class="ms-4 position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" aria-label="Ver carrito">
-            <i class="fa-solid fa-cart-shopping fa-lg"></i>
-            <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                0
-            </span>
-        </a>
     </div>
 </nav>
 
-<!-- BANNER -->
+<!-- BANNER MEJORADO -->
 <div class="container mt-4">
-    <img src="imagenes/blackfriday.png" class="img-fluid rounded" alt="Promoción Black Friday con descuentos especiales en manga">
+    <div class="banner-container position-relative rounded overflow-hidden">
+        <img src="imagenes/blackfriday.png" class="img-fluid w-100" alt="Promoción Black Friday con descuentos especiales en manga">
+        <div class="banner-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-white p-4 banner-content">
+                <h2 class="fw-bold mb-3">BLACK FRIDAY</h2>
+                <p class="lead mb-4">Hasta 50% de descuento en todos los mangas</p>
+                <button class="btn btn-warning btn-lg fw-bold">Ver Ofertas</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- TITULO -->
+<!-- FILTROS Y TÍTULO MEJORADOS -->
 <div class="container my-4">
-    <h3 class="fw-bold" id="sectionTitle">Productos destacados</h3>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+        <h3 class="fw-bold mb-3 mb-md-0" id="sectionTitle">Productos destacados</h3>
+        <div class="d-flex gap-2">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ordenar por
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                    <li><a class="dropdown-item" href="#" data-sort="name">Nombre A-Z</a></li>
+                    <li><a class="dropdown-item" href="#" data-sort="price-low">Precio: Menor a Mayor</a></li>
+                    <li><a class="dropdown-item" href="#" data-sort="price-high">Precio: Mayor a Menor</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-outline-primary" id="toggleView">
+                <i class="fa-solid fa-grip"></i>
+            </button>
+        </div>
+    </div>
 </div>
 
-<!-- PRODUCTOS -->
+<!-- PRODUCTOS MEJORADOS -->
 <div class="container">
     <div class="row g-4" id="productsRow">
         <!-- Producto 1: Boku no Hero -->
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/images.jpg" class="product-img" alt="Portada del manga Boku No Hero Academia">
-                <div class="card-body">
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/images.jpg" class="product-img img-fluid" alt="Portada del manga Boku No Hero Academia">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-danger text-white px-2 py-1 rounded">Nuevo</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Boku no Hero</h6>
-                    <p class="small">Un mundo donde el 80% de las personas tiene poderes llamados *quirks*. Izuku Midoriya, quien nació sin poderes, sueña con convertirse en héroe.</p>
-                    <p class="text-success fw-bold">$750</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Un mundo donde el 80% de las personas tiene poderes llamados *quirks*. Izuku Midoriya, quien nació sin poderes, sueña con convertirse en héroe.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$750</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-regular fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
+
         <!-- Producto 2: Blue Lock -->
-        <div class="col-md-3">
-            <div class="card p-2">
-                <img src="imagenes/651561.jpg" class="product-img" alt="Portada del manga Blue Lock">
-                <div class="card-body">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/651561.jpg" class="product-img img-fluid" alt="Portada del manga Blue Lock">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-success text-white px-2 py-1 rounded">Popular</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Blue Lock</h6>
-                    <p class="small">Un intenso programa de entrenamiento para crear al mejor delantero del mundo. Solo uno sobrevivirá al proyecto Blue Lock.</p>
-                    <p class="text-success fw-bold">$25</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Un intenso programa de entrenamiento para crear al mejor delantero del mundo. Solo uno sobrevivirá al proyecto Blue Lock.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$25</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
+
         <!-- Producto 3: Neon Genesis Evangelion -->
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/0001.jpg" class="product-img" alt="Portada del manga Neon Genesis Evangelion">
-                <div class="card-body">
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/0001.jpg" class="product-img img-fluid" alt="Portada del manga Neon Genesis Evangelion">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-info text-white px-2 py-1 rounded">Clásico</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Neon Genesis Evangelion</h6>
-                    <p class="small">Shinji Ikari debe pilotear un EVA y luchar contra misteriosas criaturas mientras enfrenta un conflicto psicológico profundo.</p>
-                    <p class="text-success fw-bold">$45</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Shinji Ikari debe pilotear un EVA y luchar contra misteriosas criaturas mientras enfrenta un conflicto psicológico profundo.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$45</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
+
         <!-- Producto 4: Monster -->
-        <div class="col-md-3">
-            <div class="card p-2">
-                <img src="imagenes/0505.jpg" class="product-img" alt="Portada del manga Monster">
-                <div class="card-body">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/0505.jpg" class="product-img img-fluid" alt="Portada del manga Monster">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-warning text-dark px-2 py-1 rounded">Oferta</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Monster</h6>
-                    <p class="small">El doctor Tenma salva la vida de un niño que más tarde se convierte en un asesino. Una historia oscura, psicológica y llena de misterio.</p>
-                    <p class="text-success fw-bold">$20</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">El doctor Tenma salva la vida de un niño que más tarde se convierte en un asesino. Una historia oscura, psicológica y llena de misterio.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$20</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-regular fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <!-- Resto de productos (ocultos por defecto) -->
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/757575.jpg" class="product-img" alt="Portada del manga Demon Slayer">
-                <div class="card-body">
+
+        <!-- Productos ocultos por defecto -->
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/757575.jpg" class="product-img img-fluid" alt="Portada del manga Demon Slayer">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-danger text-white px-2 py-1 rounded">Nuevo</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Demon Slayer</h6>
-                    <p class="text-success fw-bold">$35</p>
-                    <p class="small text-muted">Tanjiro lucha para salvar a su hermana Nezuko tras un ataque de demonios y se une al cuerpo de cazadores.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Tanjiro lucha para salvar a su hermana Nezuko tras un ataque de demonios y se une al cuerpo de cazadores.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$35</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/585858.jpg" class="product-img" alt="Portada del manga Chainsaw Man">
-                <div class="card-body">
+
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/585858.jpg" class="product-img img-fluid" alt="Portada del manga Chainsaw Man">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-success text-white px-2 py-1 rounded">Popular</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Chainsaw Man</h6>
-                    <p class="text-success fw-bold">$30</p>
-                    <p class="small text-muted">Denji, fusionado con su demonio moto-sierra, lucha contra criaturas sobrenaturales mientras busca una vida mejor.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Denji, fusionado con su demonio moto-sierra, lucha contra criaturas sobrenaturales mientras busca una vida mejor.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$30</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-regular fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/2323.jpg" class="product-img" alt="Portada del manga Tokyo Revengers">
-                <div class="card-body">
+
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/2323.jpg" class="product-img img-fluid" alt="Portada del manga Tokyo Revengers">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-info text-white px-2 py-1 rounded">Clásico</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Tokyo Revengers</h6>
-                    <p class="text-success fw-bold">$28</p>
-                    <p class="small text-muted">Takemichi viaja al pasado para evitar la muerte de la chica que amó e involucrarse con pandillas peligrosas.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Takemichi viaja al pasado para evitar la muerte de la chica que amó e involucrarse con pandillas peligrosas.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$28</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/9696.jpg" class="product-img" alt="Portada del manga Jujutsu Kaisen">
-                <div class="card-body">
+
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/9696.jpg" class="product-img img-fluid" alt="Portada del manga Jujutsu Kaisen">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-warning text-dark px-2 py-1 rounded">Oferta</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Jujutsu Kaisen</h6>
-                    <p class="text-success fw-bold">$40</p>
-                    <p class="small text-muted">Yuji Itadori enfrenta maldiciones después de consumir un objeto prohibido y convertirse en el anfitrión de Sukuna.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Yuji Itadori enfrenta maldiciones después de consumir un objeto prohibido y convertirse en el anfitrión de Sukuna.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$40</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-regular fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/3030.jpg" class="product-img" alt="Portada del manga One Piece">
-                <div class="card-body">
+
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/3030.jpg" class="product-img img-fluid" alt="Portada del manga One Piece">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-success text-white px-2 py-1 rounded">Popular</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">One Piece</h6>
-                    <p class="text-success fw-bold">$50</p>
-                    <p class="small text-muted">Luffy y su tripulación buscan el legendario tesoro One Piece para convertirse en el rey de los piratas.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Luffy y su tripulación buscan el legendario tesoro One Piece para convertirse en el rey de los piratas.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$50</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 hidden">
-            <div class="card p-2">
-                <img src="imagenes/5858.jpg" class="product-img" alt="Portada del manga Naruto Shippuden">
-                <div class="card-body">
+
+        <div class="col-sm-6 col-md-4 col-lg-3 hidden">
+            <div class="card p-2 h-100 product-card">
+                <div class="position-relative">
+                    <img src="imagenes/5858.jpg" class="product-img img-fluid" alt="Portada del manga Naruto Shippuden">
+                    <div class="product-badge position-absolute top-0 end-0 m-2 bg-info text-white px-2 py-1 rounded">Clásico</div>
+                </div>
+                <div class="card-body d-flex flex-column">
                     <h6 class="card-title">Naruto Shippuden</h6>
-                    <p class="text-success fw-bold">$38</p>
-                    <p class="small text-muted">Naruto continúa su camino ninja mientras enfrenta enemigos legendarios y busca salvar a Sasuke de la oscuridad.</p>
-                    <button class="btn btn-primary w-100 add-to-cart">Agregar al carrito</button>
+                    <p class="small text-muted flex-grow-1">Naruto continúa su camino ninja mientras enfrenta enemigos legendarios y busca salvar a Sasuke de la oscuridad.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <p class="text-success fw-bold mb-0">$38</p>
+                        <div class="rating">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-2 add-to-cart">Agregar al carrito</button>
                 </div>
             </div>
         </div>
+
+    </div>
+    
+    <!-- PAGINACIÓN MEJORADA -->
+    <div class="d-flex justify-content-center mt-5">
+        <nav aria-label="Navegación de páginas">
+            <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+            </ul>
+        </nav>
     </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="text-center mt-5 p-4 bg-light">
-    <p class="m-0">© 2025 MangaDex</p>
-    <div class="social-icons mt-3" aria-label="Redes sociales">
-        <a href="https://www.facebook.com/share/16PyxtbGbV/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://www.instagram.com/angeloouu14?igsh=MXE5ZHUxMGYyZWw4dQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@saitooo.23?_r=1&_t=ZM-91pv0Vovk1U" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a aria-label="YouTube" href="https://youtube.com/@angel.g2356?si=WKB0n7woY_0Z4aVc"><i class="fab fa-youtube"></i></a>
+<!-- FOOTER MEJORADO -->
+<footer class="text-center mt-5 p-5 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-book-open me-2"></i>MangaDex</h5>
+                <p class="text-muted">Tu tienda de confianza para los mejores mangas. Ofrecemos una amplia selección de títulos populares y clásicos.</p>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="fw-bold mb-3">Enlaces rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-muted">Inicio</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Productos</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Ofertas</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="fw-bold mb-3">Síguenos</h5>
+                <div class="social-icons mt-3" aria-label="Redes sociales">
+                    <a href="https://www.facebook.com/share/16PyxtbGbV/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/angeloouu14?igsh=MXE5ZHUxMGYyZWw4dQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@saitooo.23?_r=1&_t=ZM-91pv0Vovk1U" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a aria-label="YouTube" href="https://youtube.com/@angel.g2356?si=WKB0n7woY_0Z4aVc"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <p class="m-0 text-muted">© 2025 MangaDex. Todos los derechos reservados.</p>
     </div>
 </footer>
 
-<!-- Botón volver arriba -->
-<button id="backTop" aria-label="Volver arriba">⬆</button>
+<!-- Botón volver arriba MEJORADO -->
+<button id="backTop" aria-label="Volver arriba" class="btn-back-top">
+    <i class="fa-solid fa-chevron-up"></i>
+</button>
 
-<!-- MODALES -->
+<!-- MODALES MEJORADOS -->
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -255,7 +403,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="loginForm">
           <div class="mb-3">
             <label for="loginEmail" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="loginEmail" required>
@@ -264,8 +412,15 @@
             <label for="loginPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="loginPassword" required>
           </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Recordarme</label>
+          </div>
           <button type="submit" class="btn btn-primary w-100">Ingresar</button>
         </form>
+        <div class="text-center mt-3">
+          <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+        </div>
       </div>
     </div>
   </div>
@@ -276,11 +431,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="registerModalLabel">Registrarse</h5>
+        <h5 class="modal-title" id="registerModalLabel">Crear Cuenta</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="registerForm">
           <div class="mb-3">
             <label for="registerName" class="form-label">Nombre completo</label>
             <input type="text" class="form-control" id="registerName" required>
@@ -293,6 +448,14 @@
             <label for="registerPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="registerPassword" required>
           </div>
+          <div class="mb-3">
+            <label for="registerConfirmPassword" class="form-label">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="registerConfirmPassword" required>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="acceptTerms" required>
+            <label class="form-check-label" for="acceptTerms">Acepto los términos y condiciones</label>
+          </div>
           <button type="submit" class="btn btn-primary w-100">Registrarse</button>
         </form>
       </div>
@@ -300,95 +463,34 @@
   </div>
 </div>
 
-<!-- Carrito Modal -->
+<!-- Carrito Modal MEJORADO -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="cartModalLabel">Carrito de compras</h5>
+        <h5 class="modal-title" id="cartModalLabel">
+          <i class="fa-solid fa-cart-shopping me-2"></i>Carrito de compras
+        </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body" id="cartItems">
-        <p>Tu carrito está vacío.</p>
+        <p class="text-center text-muted py-4">Tu carrito está vacío.</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Finalizar compra</button>
+      <div class="modal-footer d-flex justify-content-between">
+        <div>
+          <strong>Total: $<span id="cartTotal">0.00</span></strong>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Seguir comprando</button>
+          <button type="button" class="btn btn-primary">Finalizar compra</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Contador de carrito -->
-<script>
-    let cartCount = 0;
-    const cartCounter = document.getElementById("cartCounter");
-    const addButtons = document.querySelectorAll(".add-to-cart");
-
-    addButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            cartCount++;
-            cartCounter.textContent = cartCount;
-        });
-    });
-</script>
-
-<!-- Buscador funcional -->
-<script>
-    const searchForm = document.getElementById("searchForm");
-    const searchInput = document.getElementById("buscador");
-    const productsRow = document.getElementById("productsRow");
-    const products = productsRow.querySelectorAll(".col-md-3");
-
-    // Mostrar solo 4 mangas en inicio
-    products.forEach((product, index) => {
-        if(index < 4) product.style.display = "block";
-    });
-
-    searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const query = searchInput.value.toLowerCase();
-        products.forEach(product => {
-            const title = product.querySelector(".card-title").textContent.toLowerCase();
-            product.style.display = title.includes(query) ? "block" : "none";
-        });
-    });
-</script>
-
-<!-- Toggle Modo oscuro -->
-<script>
-    const darkModeBtn = document.getElementById("darkModeBtn");
-    darkModeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        if(document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("darkMode", "enabled");
-            darkModeBtn.textContent = "Modo claro";
-        } else {
-            localStorage.setItem("darkMode", "disabled");
-            darkModeBtn.textContent = "Modo oscuro";
-        }
-    });
-
-    if(localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-        darkModeBtn.textContent = "Modo claro";
-    }
-</script>
-
-<!-- Toggle Categorías con cambio de título -->
-<script>
-    const categoryToggle = document.getElementById("categoryToggle");
-    const sectionTitle = document.getElementById("sectionTitle");
-
-    categoryToggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        sectionTitle.textContent = "Seinen y Shonen"; // Cambia el título
-        products.forEach(product => product.style.display = "block"); // Muestra todos
-    });
-</script>
-
 <script src="scripts.js"></script>
+
 </body>
 </html>
